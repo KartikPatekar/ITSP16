@@ -5,11 +5,11 @@ To build a self-navigating bot which reaches its destination while avoiding obst
 
 ## Introduction:
 We made a bot which can go from one geographical coordinate to another automatically using GPS (for its current location) and a map scaled to coordinates (latitude and longitude). The bot avoids stationary or slowly moving obstacles on its way. The bot is provided the final location(coordinates) on the map and it follows the shortest route to reach that location. The bot uses a combination of ultrasonic and sharp sensors to avoid basic obstacles in its way. 
-Such a bot has many applications ranging from millitary purposes to day-to-day life like fetching goods from a place to another, running errands, shopping, etc. On larger scale, the bot can be viewed as a basic prototype of driverless electric car.
+Upon further modifications, such a bot can have great applications. It can be used as unmanned delivery vehicle, in warfare, in carrying out some tasks in difficult terrain, etc. It can also be treated as a miniature version of google driverless car. Using appropriate sensors, the bot can also be used in rescue operations in times of natural disasters.
 
 ## Motivation: 
 Automation had always attracted humans. Delivering something to a friend urgently can really become a troublesome due to lack of time, so we set out to make an autonomous bot was to make something that can be used to deliver stuff over long distances without any human intervention. 
-Upon further modifications, such a bot can have great applications. It can be used as unmanned delivery vehicle, in warfare, in carrying out some tasks in difficult terrain, etc. It can also be treated as a miniature version of google driverless car. Using appropriate sensors, the bot can also be used in rescue operations in times of natural disasters.
+
 
 -----------------------------------------------------------------------------------------------------------------
 
