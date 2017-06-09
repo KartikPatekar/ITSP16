@@ -4,8 +4,8 @@
 To build a self-navigating bot which reaches its destination while avoiding obstacles in its way.
 
 ## Introduction:
-We made a bot which can go from one geographical coordinate to another automatically using GPS mapping, avoiding basic obstacles on its way. The bot is provided the final location(coordinates) on the map and it follows the shortest route to reach that location. The bot uses a combination of ultrasonic and sharp sensors to avoid basic obstacles in its way. 
-Such a bot has many applications in daily life. On further advancements, 
+We made a bot which can go from one geographical coordinate to another automatically using GPS (for its current location) and a map scaled to coordinates (latitude and longitude). The bot avoids stationary or slowly moving obstacles on its way. The bot is provided the final location(coordinates) on the map and it follows the shortest route to reach that location. The bot uses a combination of ultrasonic and sharp sensors to avoid basic obstacles in its way. 
+Such a bot has many applications ranging from millitary purposes to day-to-day life like fetching goods from a place to another, running errands, shopping, etc. On larger scale, the bot can be viewed as a basic prototype of driverless electric car.
 
 ## Motivation: 
 Automation had always attracted humans. Delivering something to a friend urgently can really become a troublesome due to lack of time, so we set out to make an autonomous bot was to make something that can be used to deliver stuff over long distances without any human intervention. 
@@ -82,7 +82,7 @@ Code for distance calculation:
 The bot uses a servo motor to rotate the sharp sensor by 180 degrees to get accurate measurement of all the obstacles around the bot.`
 
 ### Ultrasonic Sensor`
-An Ultrasonic sensor is a device that can measure the distance to an object by using sound waves. It measu`res distance by sending out a sound wave at a specific frequency and listening for that sound wave to bounce back. By recording the elapsed time between the sound wave being generated and the sound wave bouncing back, it is possible to calculate the distance between the sonar sensor and the object.
+An Ultrasonic sensor is a device that can measure the distance to an object by using sound waves. It measures distance by sending out a sound wave at a specific frequency and listening for that sound wave to bounce back. By recording the elapsed time between the sound wave being generated and the sound wave bouncing back, it is possible to calculate the distance between the sonar sensor and the object.
 
 ### Arduino communication
 Since the bot has 4 ultrasound sensor, a sharp sensor, a servo motor, a magnetometer, GPS receiver and GSM/GPRS module, it needs 2 arduinos to control all these devices. The two arduinos communicate with each other using serial i2c communication. The slave Arduino hosts the GPS receiver and GSM/GPRS module, while remaining devices are operated by master arduino.
@@ -96,11 +96,12 @@ Since the bot has 4 ultrasound sensor, a sharp sensor, a servo motor, a magnetom
 
 ### Path Following bot
 An HTML file containing the calculated map points is hosted on a free webserver. The mobile bot can access this html file using GPRS and can acquire the path from a remote location. The bot then matches its heading with the required direction using magnetometer, and then moves towards its destination.
-Obstacle avoiding bot
+### Obstacle avoiding bot
 The bot has been equipped with an infrared proximity sensor (SHARP 2Y0A02) along with four ultrasonic sensors (HCSR04 modules).
-The proximity sensor (SHARP Sensor ) is mounted on a servo motor (9gr) making it/which has been denoted here as SHARP-SERVO mechanism. The panoramic range has been kept to 120 degrees symmetrically in the forward direction.
-The mechanism has been coded to effectively avoid all stationery/ slow moving obstacles which subtend at least ~ 10 degrees (neglecting error) on the sensor.
-The error observed was significantly less and its effect has been effectively submerged by keeping a higher limit of 10 degrees on the sides and 6 degrees in the front. The ultrasonic sensors are kept (two in front and two at ~ 45 degrees from the front facing either sides) to tell the bot when to start the SHARP-SERVO mechanism to be able to avoid obstacles. As soon as any of the ultrasound sensors detect an obstacle (at max 40 cm from the bot). The code for the obstacle avoidance using SHARP-SERVO mechanism begins and continues till none of the ultrasonic sensors detect the obstacle beyond which the code proceeds to the path following mode (provided by GPS and magnetometer compass).
+The proximity sensor (SHARP Sensor ) is mounted on a servo motor (9gr) which has been denoted here as SHARP-SERVO mechanism. The panoramic range has been kept to 120 degrees symmetrically in the forward direction.
+ The mechanism has been coded to effectively avoid all stationary/ slow moving obstacles which subtend at least ~ 10 degrees (neglecting error) on the sensor.
+The error observed was significantly less and its effect has been effectively submerged by keeping a higher limit of 10 degrees on the sides and 6 degrees in the front. 
+ The ultrasonic sensors are kept (two in front and two at ~ 45 degrees from the front facing either sides) to tell the bot when to start the SHARP-SERVO mechanism to be able to avoid obstacles. As soon as any of the ultrasound sensors detect an obstacle (at max 40 cm from the bot) the code for the obstacle avoidance using SHARP-SERVO mechanism begins and continues till none of the ultrasonic sensors detect the obstacle beyond which the code proceeds to the path following mode (provided by GPS and magnetometer compass).
 
 ### The final bot
 In each iteration of the “void loop()” the bot calculates its present GPS coordinate, and the distance of obstacles around it using ultrasonic sensor. The bot then decides whether to focus on following the path or avoiding obstacles.
