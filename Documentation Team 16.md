@@ -169,3 +169,4 @@ Code for "void loop()" in master arduino:
 2. https://github.com/mechasolution/Mecha_QMC5883
 3. http://www.instructables.com/id/Connecting-GPS-module-to-Arduino/
 4. https://www.google.co.in
+5. http://docs.opencv.org/2.4/doc/tutorials/tutorials.html
