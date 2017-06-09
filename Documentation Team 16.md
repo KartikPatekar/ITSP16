@@ -97,8 +97,8 @@ Since the bot has 4 ultrasound sensor, a sharp sensor, a servo motor, a magnetom
 3.	Obstacle avoiding bot
 
 ### Path Calculation
-**How to get desired map from Google map**
-> Google map API
+> How to get desired map from Google map
+Google map API
 It gives the flexibility to get the desired map from google maps like we wanted a map with no labels on it and narrow roads. There were numerous way in which we can create the map. To get the image of map we used static map API which only needs the centre coordinate of the map,zoom level and pixel dimension of the static image of map required.You can have a look on this site for it.
 
 2.OpenCV to improve map image
