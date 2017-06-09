@@ -60,7 +60,8 @@ The path is calculated on a local machine and a html file containing the coordin
 ### Sharp Sensor
 
 The detector in the Sharp IR sensor is similar to the imaging sensor found in digital cameras. Since the detector and the IR LED have a fixed distance and orientation relative to each other, the distance of an object will affect the angle at which the light from the IR LED hits the receiver. By looking at where the light hits the detector, it is possible to calculate the angle of the light and from that angle derive the distance to the object (all of which is done by the sensor itself).
-Code for distance calculation:   
+Code for distance calculation: 
+
      int distance() 
      {
         float proxSens = analogRead(A1);
@@ -74,6 +75,7 @@ Code for distance calculation:
 
         return cm;
       }
+      
 **Working Of Sharp Sensor**
 
 ![Sherp Sensor](https://github.com/KartikPatekar/ITSP16/blob/master/Sharp%20sensor.png)
