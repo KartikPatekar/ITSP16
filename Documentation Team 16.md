@@ -103,7 +103,7 @@ Since the bot has 4 ultrasound sensor, a sharp sensor, a servo motor, a magnetom
 It gives the flexibility to get the desired map from google maps like we wanted a map with no labels on it and narrow roads. There were numerous way in which we can create the map. To get the image of map we used static map API which only needs the centre coordinate of the map,zoom level and pixel dimension of the static image of map required.You can have a look on this site for it. "[Google Styling Wizard](https://mapstyle.withgoogle.com/)"
 
 >2.OpenCV to improve map image
-Opencv is a c++ library which helps to process images. It converts image into a 3 Dimensional array of pixels containing values representing weights of Red, Blue, Green color in terms of integers ranging from 0 to 255. This tutorial helped me to use OpenCV. But we used grayscale image which is converted into 1 Dimensional array conataining integer values representing weight of white color of a pixel(0 meant black,255 meant white). As the image generated from Google API didn't gave us an image which can be directly used to find shortest path. So, by observing the values of pixel for road and surrounding we converted the map image into an image which has black colored pixels as road and other things having different color.
+Opencv is a c++ library which helps to process images. It converts image into a 3 Dimensional array of pixels containing values representing weights of Red, Blue, Green color in terms of integers ranging from 0 to 255. This tutorial helped me to use OpenCV. But we used grayscale image which is converted into 1 Dimensional array conataining integer values representing weight of white color of a pixel(0 meant black,255 meant white). As the image generated from Google API didn't gave us an image which can be directly used to find shortest path. So, by observing the values of pixel for road and surrounding we converted the map image into an image which has black colored pixels as road and other things having different color. [OpenCv](http://opencv.org/)
 
 >3.Latitude longitude from google maps
 After fixing the map zoom level we noted down the change in latitude and longitude for a fixed number of pixels. We got the change in latitude per pixel and longitude per pixel and as we know the centre coordinate of the map using ratio proportion we calculated latitude and longitude of each and every pixel on the image.
@@ -113,10 +113,15 @@ After fixing the map zoom level we noted down the change in latitude and longitu
 
 **Algorithm to find shortest path between initial and final coordinates**
 >let color of pixel for road be black.
+
 1.Feed in initial and final lat and lng using which we get pixel coordinates on road of the map.(It might happen that pixel is not of road. So below written code makes sure that we get on a nearby road pixel.)
+
 2.Make an array of pixels around the present pixel which have color of road and color the present pixel white.["Around" here means a square of 3x3 pixels having center at present pixel]
+
 3.Calculate distance of each pixel from the final position, one having minimum distance is then considered as present pixel , after that go back to step 2.Simultaneously update the value of two vectors one with x coordinate another with y coordinates of pixels which have been whitened.
+
 4.While doing step 2 & 3 it might happen that there is no pixel having color of road with center at present pixel around it, then go back to previous whitened pixel until a pixel of color of road is found then go back to step 2.Simultaneously remove the coordinates of the white pixel which it has retraced.However the color of the pixel which retraces remain same.
+
 5.There are two other vectors of int type which stores all the pixels which have been whittened.So at last when it reaches its final point we color all the whitened pixels to black and then use the vectors which have been updated in step 2,3&4 to color the path white from initial to final position.
 
 
