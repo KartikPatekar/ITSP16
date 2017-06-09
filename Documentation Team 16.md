@@ -96,14 +96,36 @@ Since the bot has 4 ultrasound sensor, a sharp sensor, a servo motor, a magnetom
 2.	Path following bot
 3.	Obstacle avoiding bot
 
+### Path Calculation
+**How to get desired map from Google map**
+> Google map API
+It gives the flexibility to get the desired map from google maps like we wanted a map with no labels on it and narrow roads. There were numerous way in which we can create the map. To get the image of map we used static map API which only needs the centre coordinate of the map,zoom level and pixel dimension of the static image of map required.You can have a look on this site for it.
+
+2.OpenCV to improve map image
+Opencv is a c++ library which helps to process images. It converts image into a 3 Dimensional array of pixels containing values representing weights of Red, Blue, Green color in terms of integers ranging from 0 to 255. This tutorial helped me to use OpenCV. But we used grayscale image which is converted into 1 Dimensional array conataining integer values representing weight of white color of a pixel(0 meant black,255 meant white). As the image generated from Google API didn't gave us an image which can be directly used to find shortest path. So, by observing the values of pixel for road and surrounding we converted the map image into an image which has black colored pixels as road and other things having different color.
+
+3.Latitude longitude from google maps
+After fixing the map zoom level we noted down the change in latitude and longitude for a fixed number of pixels. We got the change in latitude per pixel and longitude per pixel and as we know the centre coordinate of the map using ratio proportion we calculated latitude and longitude of each and every pixel on the image.
+
+
+
+
+Algorithm to find shortest path between initaial and final coordinates
+let color of pixel for road be black.
+1.Feed in initial and final lat lng using which we get pixel cordinates on road of the map.(It might happen that pixel is not of road. So below written code makes sure that we get on a nearby road pixel.)
+2.Make an array of pixels around the present pixel which have color of road and color the present pixel white.["Around" here means a square of 3x3 pixels having centre at present pixel]
+3.Calculate distance of each pixel from the final position, one having minimum distance is then considered as present pixel , after that go back to step 2.Simultaneously update the value of two vectors one with x coordinate another with y coordinates of pixels which have been whitened.
+4.While doing step 2 & 3 it might happen that there is no pixel having color of road with centre at present pixel around it, then go back to previous whitened pixel until a pixel of color of road is found then go back to step 2.Simultaneously remove the coordinates of the white pixel which it has retraced.However the color of the pixel which retraces remain same.
+5.There are two other vectors of int type which stores all the pixels which have been whittened.So at last when it reaches its final point we color all the whitened pixels to black and then use the vectors which have been updated in step 2,3&4 to color the path white from initial to final position.
+
 ### Path Following bot
 An HTML file containing the calculated map points is hosted on a free webserver. The mobile bot can access this html file using GPRS and can acquire the path from a remote location. The bot then matches its heading with the required direction using magnetometer, and then moves towards its destination.
 ### Obstacle avoiding bot
 The bot has been equipped with an infrared proximity sensor (SHARP 2Y0A02) along with four ultrasonic sensors (HCSR04 modules).
-The proximity sensor (SHARP Sensor ) is mounted on a servo motor (9gr) which has been denoted here as SHARP-SERVO mechanism. The panoramic range has been kept to 120 degrees symmetrically in the forward direction.
+The proximity sensor is mounted on a servo motor (9gr) which has been denoted here as SHARP-SERVO mechanism. The panoramic range has been kept to 120 degrees symmetrically in the forward direction.
  The mechanism has been coded to effectively avoid all stationary/ slow moving obstacles which subtend at least ~ 10 degrees (neglecting error) on the sensor.
 The error observed was significantly less and its effect has been effectively submerged by keeping a higher limit of 10 degrees on the sides and 6 degrees in the front. 
- The ultrasonic sensors are kept (two in front and two at ~ 45 degrees from the front facing either sides) to tell the bot when to start the SHARP-SERVO mechanism to be able to avoid obstacles. As soon as any of the ultrasound sensors detect an obstacle (at max 40 cm from the bot) the code for the obstacle avoidance using SHARP-SERVO mechanism begins and continues till none of the ultrasonic sensors detect the obstacle beyond which the code proceeds to the path following mode (provided by GPS and magnetometer compass).
+ The ultrasonic sensors are kept (two in front and two at ~ 45 degrees from the front facing either sides) to tell the bot when to start the SHARP-SERVO mechanism to be able to avoid obstacles. As soon as any of the ultrasound sensors detect an obstacle at max 40 cm from the bot the code for the obstacle avoidance using SHARP-SERVO mechanism begins and continues till none of the ultrasonic sensors detect the obstacle beyond which the code proceeds to the path following mode (provided by GPS and magnetometer compass).
 
 ### The final bot
 In each iteration of the “void loop()” the bot calculates its present GPS coordinate, and the distance of obstacles around it using ultrasonic sensor. The bot then decides whether to focus on following the path or avoiding obstacles.
