@@ -81,9 +81,9 @@ Code for distance calculation:
 ![Sherp Sensor](https://github.com/KartikPatekar/ITSP16/blob/master/Sharp%20sensor.png)
 
 
-The bot uses a servo motor to rotate the sharp sensor by 180 degrees to get accurate measurement of all the obstacles around the bot.`
+The bot uses a servo motor to rotate the sharp sensor by 180 degrees to get accurate measurement of all the obstacles around the bot.
 
-### Ultrasonic Sensor`
+### Ultrasonic Sensor
 An Ultrasonic sensor is a device that can measure the distance to an object by using sound waves. It measures distance by sending out a sound wave at a specific frequency and listening for that sound wave to bounce back. By recording the elapsed time between the sound wave being generated and the sound wave bouncing back, it is possible to calculate the distance between the sonar sensor and the object.
 
 ### Arduino communication
@@ -123,6 +123,79 @@ After fixing the map zoom level we noted down the change in latitude and longitu
 4.While doing step 2 & 3 it might happen that there is no pixel having color of road with center at present pixel around it, then go back to previous whitened pixel until a pixel of color of road is found then go back to step 2.Simultaneously remove the coordinates of the white pixel which it has retraced.However the color of the pixel which retraces remain same.
 
 5.There are two other vectors of int type which stores all the pixels which have been whittened.So at last when it reaches its final point we color all the whitened pixels to black and then use the vectors which have been updated in step 2,3&4 to color the path white from initial to final position.
+
+    vector<int> xp,yp,xpn,ypn,abc,efg;
+    vector<float> lng,lat;  
+    while(x!=xf || y!=yf){
+        int a[8][2];
+        int d[8];
+        int b=0;
+        for(int i=-1;i<2;i++){
+            if(i==0){
+                for(int j=-1;j<2;j+=2){
+                    if(img.at<int8_t>(x+i,y+j)==0){
+                        a[b][0]=x+i;
+                        a[b][1]=y+j;
+                        b++;
+                    }
+                }
+            }
+            else{
+                for(int j=-1;j<2;j++){
+                    if(img.at<int8_t>(x+i,y+j)==0){
+                        a[b][0]=x+i;
+                        a[b][1]=y+j;
+                        b++;
+                    }
+                }
+            }
+        }
+        if(b==0){
+            if(xp[xp.size()-1]==x && yp[yp.size()-1]==y){
+                lat.pop_back();
+                lng.pop_back();
+                xp.pop_back();
+                yp.pop_back();
+                abc.pop_back();																//
+                efg.pop_back();																//
+            }else{
+                img.at<int8_t>(x,y)=255;
+                xpn.push_back(x);
+                ypn.push_back(y);
+            }
+            x=xp[xp.size()-1];
+            y=yp[yp.size()-1];
+            continue;
+        }
+
+        for(int i=0;i<b;i++){
+            d[i]=(xf-a[i][0])*(xf-a[i][0])+(yf-a[i][1])*(yf-a[i][1]);
+        }
+        int m=d[0];
+        int in=0;
+        for(int i=1;i<b;i++){
+            if(m>d[i]){
+                m=d[i];
+                in=i;
+            }
+        }
+
+        img.at<int8_t>(x,y)=255;
+        xp.push_back(x);
+        yp.push_back(y);
+        abc.push_back(x);																	//
+        efg.push_back(y);																	//
+        xpn.push_back(x);
+        ypn.push_back(y);
+        lat.push_back(clat+(200-x)*latppx);
+        lng.push_back(clng+(y-200)*lngppx);
+
+        //lat=clat+(200-y)*latppx;
+        //lng=clng+(x-200)*lngppx;
+        x=a[in][0];
+        y=a[in][1];
+    }
+   
 
 
 ### Path Following bot
