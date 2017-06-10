@@ -190,8 +190,6 @@ After fixing the map zoom level we noted down the change in latitude and longitu
         lat.push_back(clat+(200-x)*latppx);
         lng.push_back(clng+(y-200)*lngppx);
 
-        //lat=clat+(200-y)*latppx;
-        //lng=clng+(x-200)*lngppx;
         x=a[in][0];
         y=a[in][1];
     }
