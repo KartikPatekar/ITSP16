@@ -79,6 +79,7 @@ Code for distance calculation:
 **Working Of Sharp Sensor**
 
 ![Sherp Sensor](https://github.com/KartikPatekar/ITSP16/blob/master/Sharp%20sensor.png)
+https://github.com/KartikPatekar/ITSP16/blob/master/Sharp%20sensor.png
 
 
 The bot uses a servo motor to rotate the sharp sensor by 180 degrees to get accurate measurement of all the obstacles around the bot.
@@ -234,6 +235,7 @@ Code for "void loop()" in master arduino:
 **Sensor positions on the bot**
 
 ![Sensor Positioning](https://raw.githubusercontent.com/KartikPatekar/ITSP16/master/Sensor%20Position.png)                       
+https://raw.githubusercontent.com/KartikPatekar/ITSP16/master/Sensor%20Position.png
 
 ### References:
 1. https://www.arduino.cc/en/Tutorial/HomePage
